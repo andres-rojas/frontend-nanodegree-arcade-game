@@ -21,7 +21,7 @@ var Enemy = function(pos_y) {
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
     this.x = -100;
-    this.y = pos_y;
+    this.set_lane();
 };
 
 // Update the enemy's position, required method for game
@@ -36,6 +36,10 @@ Enemy.prototype.update = function(dt) {
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, GRID['y'][this.y] - 7);
+};
+
+Enemy.prototype.set_lane = function() {
+    this.y = Math.floor(Math.random() * (3)) + 2;
 };
 
 // Now write your own player class

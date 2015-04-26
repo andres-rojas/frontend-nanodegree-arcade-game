@@ -6,6 +6,7 @@ var Enemy = function() {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    this.x = Math.random() * ((CELL.width * GRID.width) + 100) - 100;
     this.spawn();
 };
 
@@ -15,8 +16,10 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (this.x > CELL.width * GRID.width)
+    if (this.x > CELL.width * GRID.width) {
+        this.x = -100;
         this.spawn();
+    }
     else
         this.x = this.x + (60 * this.speed * dt);
 };
@@ -31,7 +34,6 @@ Enemy.prototype.set_lane = function() {
 };
 
 Enemy.prototype.spawn = function() {
-    this.x = -100;
     this.set_lane();
     this.speed = Math.random() * (current.maxSpeed - current.minSpeed) + current.minSpeed;
 };

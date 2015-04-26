@@ -32,7 +32,7 @@ Enemy.prototype.update = function(dt) {
     if (this.x > 505)
         this.spawn();
     else
-        this.x = this.x + (60 * dt);
+        this.x = this.x + (60 * this.speed * dt);
 };
 
 // Draw the enemy on the screen, required method for game
@@ -47,6 +47,7 @@ Enemy.prototype.set_lane = function() {
 Enemy.prototype.spawn = function() {
     this.x = -100;
     this.set_lane();
+    this.speed = Math.random() + 1;
 };
 
 // Now write your own player class

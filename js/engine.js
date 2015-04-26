@@ -109,8 +109,8 @@ var Engine = (function(global) {
                 y: enemy.y
             };
 
-            if (playerPos.x < enemyPos.x + CELL.width &&
-                    enemyPos.x < playerPos.x + CELL.width &&
+            if (playerPos.x < enemyPos.x + CELL.width - COLLISION_OFFSET &&
+                    enemyPos.x < playerPos.x + CELL.width - COLLISION_OFFSET &&
                     playerPos.y === enemyPos.y)
                 player.lose();
         });

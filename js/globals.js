@@ -1,3 +1,6 @@
+// Collision x-offset
+var COLLISION_OFFSET = 20;
+
 // Cell sizes for the grid
 var CELL = {
     width: 101,

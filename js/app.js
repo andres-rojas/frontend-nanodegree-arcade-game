@@ -55,7 +55,7 @@ Enemy.prototype.spawn = function() {
 var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.wins = 0;
-    this.reset();
+    this.spawn();
 };
 
 Player.prototype.update = function() {};
@@ -90,10 +90,10 @@ Player.prototype.handleInput = function(direction) {
 Player.prototype.win = function() {
     this.wins++;
     alert("Nice! You've crossed the road " + this.wins + " times!");
-    this.reset();
+    this.spawn();
 };
 
-Player.prototype.reset = function() {
+Player.prototype.spawn = function() {
     this.x = 2;
     this.y = 0;
 };

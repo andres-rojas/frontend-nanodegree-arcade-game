@@ -1,7 +1,6 @@
 // Representative grid for movement
 // Uses traditional x/y plotting
 // i.e: y  ____________________
-//      5 |___|___|___|___|___|
 //      4 |___|___|___|___|___|
 //      3 |___|___|___|___|___|
 //      2 |___|___|___|___|___|
@@ -10,7 +9,7 @@
 //          0   1   2   3   4   x
 var GRID = {
     x: [0, 100, 200, 300, 400],
-    y: [400, 320, 240, 160, 80, 0]
+    y: [400, 317, 234, 151, 68]
 };
 
 // Enemies our player must avoid
@@ -58,7 +57,7 @@ Player.prototype.handleInput = function(direction) {
                 this.x--;
             break;
         case 'up':
-            if (this.y < 5)
+            if (this.y < 4)
                 this.y++;
             break;
         case 'right':

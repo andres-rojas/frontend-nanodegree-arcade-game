@@ -23,7 +23,7 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, GRID.y[this.y] - ENEMY.yOffset);
+    ctx.drawImage(Resources.get(this.sprite), this.x, GRID.y[this.y] - ENEMY_Y_OFFSET);
 };
 
 Enemy.prototype.set_lane = function() {
@@ -33,7 +33,7 @@ Enemy.prototype.set_lane = function() {
 Enemy.prototype.spawn = function() {
     this.x = -100;
     this.set_lane();
-    this.speed = Math.random() * (ENEMY.maxSpeed - ENEMY.minSpeed) + ENEMY.minSpeed;
+    this.speed = Math.random() * (difficulty.maxSpeed - difficulty.minSpeed) + difficulty.minSpeed;
 };
 
 // Now write your own player class
@@ -95,7 +95,10 @@ Player.prototype.spawn = function() {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [new Enemy()];
+var allEnemies = [];
+for (var i = 0; i < difficulty.enemyCount; i++)
+    allEnemies.push(new Enemy());
+
 var player = new Player();
 
 // This listens for key presses and sends the keys to your

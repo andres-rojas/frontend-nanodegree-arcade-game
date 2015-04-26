@@ -1,9 +1,6 @@
+// Constants
 var COLLISION_OFFSET = 20;
-var ENEMY = {
-    minSpeed: 1,
-    maxSpeed: 2,
-    yOffset: 7
-};
+var ENEMY_Y_OFFSET = 7;
 
 // Cell sizes for the grid
 var CELL = {
@@ -41,3 +38,11 @@ GRID.bottom = CELL.height * (GRID.height - 1) + GRID.offsetY;
 // Set y coordinates for each cell in the grid
 for (var i = 0; i < GRID.height; i++)
     GRID.y[i] = GRID.bottom - (i * CELL.height);
+
+
+// Variables
+var difficulty = {
+    minSpeed: 1,
+    maxSpeed: 2,
+    enemyCount: 2
+};

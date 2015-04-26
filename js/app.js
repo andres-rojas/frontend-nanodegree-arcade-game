@@ -23,7 +23,7 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, GRID['y'][this.y] - 7);
+    ctx.drawImage(Resources.get(this.sprite), this.x, GRID.y[this.y] - 7);
 };
 
 Enemy.prototype.set_lane = function() {
@@ -48,7 +48,7 @@ var Player = function() {
 Player.prototype.update = function() {};
 
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), GRID['x'][this.x], GRID['y'][this.y]);
+    ctx.drawImage(Resources.get(this.sprite), GRID.x[this.x], GRID.y[this.y]);
 };
 
 Player.prototype.handleInput = function(direction) {

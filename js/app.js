@@ -42,6 +42,7 @@ var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.x = 2;
     this.y = 0;
+    this.wins = 0;
 };
 
 Player.prototype.update = function() {};
@@ -74,8 +75,11 @@ Player.prototype.handleInput = function(direction) {
 };
 
 Player.prototype.win = function() {
-    alert('You won!')
-}
+    this.wins++;
+    alert("Nice! You've crossed the road " + this.wins + " times!");
+    this.x = 2;
+    this.y = 0;
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies

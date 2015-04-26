@@ -23,7 +23,7 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, GRID.y[this.y] - ENEMY_Y_OFFSET);
+    ctx.drawImage(Resources.get(this.sprite), this.x, GRID.y[this.y] - ENEMY.yOffset);
 };
 
 Enemy.prototype.set_lane = function() {
@@ -33,7 +33,7 @@ Enemy.prototype.set_lane = function() {
 Enemy.prototype.spawn = function() {
     this.x = -100;
     this.set_lane();
-    this.speed = Math.random() * (difficulty.maxSpeed - difficulty.minSpeed) + difficulty.minSpeed;
+    this.speed = Math.random() * (current.maxSpeed - current.minSpeed) + current.minSpeed;
 };
 
 // Now write your own player class
@@ -78,12 +78,28 @@ Player.prototype.handleInput = function(direction) {
 Player.prototype.win = function() {
     this.wins++;
     alert("Nice! You've crossed the road " + this.wins + " times!");
+
+    if (this.wins % 2 === 0 && current.maxSpeed < ENEMY.maxSpeed)
+        current.maxSpeed++;
+    if (this.wins % 3 === 0 && allEnemies.length < ENEMY.maxCount)
+        allEnemies.push(new Enemy());
+    if (this.wins % 5 === 0 && current.minSpeed < ENEMY.maxSpeed)
+        current.minSpeed++;
+
     reset();
 };
 
 Player.prototype.lose = function() {
     this.losses++;
     alert("OH NO! You've been hit " + this.losses + " times!");
+
+    if (current.maxSpeed > ENEMY.minSpeed)
+        current.maxSpeed--;
+    if (allEnemies.length > ENEMY.minCount)
+        allEnemies.pop();
+    if (current.minSpeed > ENEMY.minSpeed)
+        current.minSpeed--;
+
     reset();
 };
 
@@ -96,7 +112,7 @@ Player.prototype.spawn = function() {
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [];
-for (var i = 0; i < difficulty.enemyCount; i++)
+for (var i = 0; i < ENEMY.startCount; i++)
     allEnemies.push(new Enemy());
 
 var player = new Player();

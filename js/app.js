@@ -44,7 +44,7 @@ var Player = function() {
     this.y = 0;
 };
 
-Player.prototype.update = function(dt) {};
+Player.prototype.update = function() {};
 
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), GRID['x'][this.x], GRID['y'][this.y]);
@@ -59,6 +59,8 @@ Player.prototype.handleInput = function(direction) {
         case 'up':
             if (this.y < 4)
                 this.y++;
+            else if (this.y === 4)
+                this.win();
             break;
         case 'right':
             if (this.x < 4)
@@ -70,6 +72,10 @@ Player.prototype.handleInput = function(direction) {
             break;
     }
 };
+
+Player.prototype.win = function() {
+    alert('You won!')
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies

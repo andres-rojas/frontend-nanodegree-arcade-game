@@ -1,3 +1,18 @@
+// Representative grid for movement
+// Uses traditional x/y plotting
+// i.e: y  ____________________
+//      5 |___|___|___|___|___|
+//      4 |___|___|___|___|___|
+//      3 |___|___|___|___|___|
+//      2 |___|___|___|___|___|
+//      1 |___|___|___|___|___|
+//      0 |___|___|___|___|___|
+//          0   1   2   3   4   x
+var GRID = {
+    x: [0, 100, 200, 300, 400],
+    y: [400, 320, 240, 160, 80, 0]
+};
+
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,
@@ -26,14 +41,14 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 var Player = function() {
     this.sprite = 'images/char-boy.png';
-    this.x = 200;
-    this.y = 380;
+    this.x = 2;
+    this.y = 0;
 };
 
 Player.prototype.update = function(dt) {};
 
 Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    ctx.drawImage(Resources.get(this.sprite), GRID['x'][this.x], GRID['y'][this.y]);
 };
 
 Player.prototype.handleInput = function() {};

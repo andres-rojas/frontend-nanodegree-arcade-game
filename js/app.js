@@ -42,6 +42,7 @@ Enemy.prototype.spawn = function() {
 var Player = function() {
     this.sprite = 'images/char-boy.png';
     this.wins = 0;
+    this.losses = 0;
     this.spawn();
 };
 
@@ -77,7 +78,13 @@ Player.prototype.handleInput = function(direction) {
 Player.prototype.win = function() {
     this.wins++;
     alert("Nice! You've crossed the road " + this.wins + " times!");
-    this.spawn();
+    reset();
+};
+
+Player.prototype.lose = function() {
+    this.losses++;
+    alert("OH NO! You've been hit " + this.losses + " times!");
+    reset();
 };
 
 Player.prototype.spawn = function() {
@@ -103,3 +110,9 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+// Resets the game state
+var reset = function() {
+    player.spawn();
+    allEnemies.forEach(function(enemy) { enemy.spawn(); });
+};

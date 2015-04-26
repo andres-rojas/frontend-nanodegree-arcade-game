@@ -1,5 +1,9 @@
-// Collision x-offset
 var COLLISION_OFFSET = 20;
+var ENEMY = {
+    minSpeed: 1,
+    maxSpeed: 2,
+    yOffset: 7
+};
 
 // Cell sizes for the grid
 var CELL = {

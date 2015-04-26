@@ -15,7 +15,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (this.x > 505)
+    if (this.x > CELL.width * GRID.width)
         this.spawn();
     else
         this.x = this.x + (60 * this.speed * dt);
@@ -23,17 +23,17 @@ Enemy.prototype.update = function(dt) {
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, GRID.y[this.y] - 7);
+    ctx.drawImage(Resources.get(this.sprite), this.x, GRID.y[this.y] - ENEMY.yOffset);
 };
 
 Enemy.prototype.set_lane = function() {
-    this.y = Math.floor(Math.random() * (3)) + 2;
+    this.y = Math.floor(Math.random() * 3) + 2;
 };
 
 Enemy.prototype.spawn = function() {
     this.x = -100;
     this.set_lane();
-    this.speed = Math.random() + 1;
+    this.speed = Math.random() * (ENEMY.maxSpeed - ENEMY.minSpeed) + ENEMY.minSpeed;
 };
 
 // Now write your own player class

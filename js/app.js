@@ -1,17 +1,3 @@
-// Representative grid for movement
-// Uses traditional x/y plotting
-// i.e: y  ____________________
-//      4 |___|___|___|___|___|
-//      3 |___|___|___|___|___|
-//      2 |___|___|___|___|___|
-//      1 |___|___|___|___|___|
-//      0 |___|___|___|___|___|
-//          0   1   2   3   4   x
-var GRID = {
-    x: [0, 101, 202, 303, 404],
-    y: [400, 317, 234, 151, 68]
-};
-
 // Enemies our player must avoid
 var Enemy = function() {
     // Variables applied to each of our instances go here,

@@ -66,8 +66,6 @@ var Player = function() {
 Player.prototype = Object.create(Entity.prototype);
 Player.prototype.constructor = Player;
 
-Player.prototype.update = function() {};
-
 // Draw the player on the screen
 // Use a GRID-relative value for both axes
 Player.prototype.render = function() {

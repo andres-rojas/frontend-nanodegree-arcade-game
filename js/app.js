@@ -160,9 +160,3 @@ document.addEventListener('keyup', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
-// Resets the game state
-var reset = function() {
-    player.spawn();
-    allEnemies.forEach(function(enemy) { enemy.spawn(); });
-};

@@ -64,7 +64,6 @@ var Engine = (function(global) {
      * game loop.
      */
     function init() {
-        reset();
         lastTime = Date.now();
         main();
     }
@@ -178,7 +177,8 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        player.spawn();
+        allEnemies.forEach(function(enemy) { enemy.spawn(); });
     }
 
     /* Go ahead and load all of the images we know we're going to need to

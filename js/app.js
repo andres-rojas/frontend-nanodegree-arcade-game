@@ -1,14 +1,22 @@
-// Enemies our player must avoid
-var Enemy = function() {
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
+// Base class for Players and Enemies to inherit from
+var Entity = function(sprite) {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
-    this.x = Math.random() * ((CELL.width * GRID.width) + 100) - 100;
+    this.sprite = sprite;
+
+    // Each subclass will require a spawn method
     this.spawn();
 };
+
+// Enemies our player must avoid
+var Enemy = function() {
+    Entity.call(this, 'images/enemy-bug.png');
+    this.x = randomInt(GRID.pixelWidth - ENEMY.spawnX, ENEMY.spawnX);
+};
+
+// Prototype and constructor for Enemy
+Enemy.prototype = Object.create(Entity.prototype);
+Enemy.prototype.constructor = Enemy;
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -16,44 +24,58 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    if (this.x > CELL.width * GRID.width) {
-        this.x = -100;
+    if (this.x > GRID.pixelWidth)
         this.spawn();
-    }
     else
         this.x = this.x + (60 * this.speed * dt);
 };
 
 // Draw the enemy on the screen, required method for game
+// Use an absolute pixel value for the x-axis
+// Use a GRID-relative value for the y-axis
+// Apply ENEMY.yOffset to the y-axis
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, GRID.y[this.y] - ENEMY.yOffset);
 };
 
-Enemy.prototype.set_lane = function() {
-    this.y = Math.floor(Math.random() * 3) + 2;
+// Randomize enemy placement to different lanes
+Enemy.prototype.setLane = function() {
+    this.y = randomInt(ENEMY.bottomLane, ENEMY.topLane);
 };
 
+// Spawn enemies
+// - off-screen
+// - on a random lane
+// - with a random movement speed
 Enemy.prototype.spawn = function() {
-    this.set_lane();
-    this.speed = Math.random() * (current.maxSpeed - current.minSpeed) + current.minSpeed;
+    this.x = ENEMY.spawnX;
+    this.setLane();
+    this.speed = randomInt(current.minSpeed, current.maxSpeed);
 };
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 var Player = function() {
-    this.sprite = 'images/char-boy.png';
+    Entity.call(this, 'images/char-boy.png');
     this.wins = 0;
     this.losses = 0;
-    this.spawn();
 };
+
+// Prototype and constructor for Player
+Player.prototype = Object.create(Entity.prototype);
+Player.prototype.constructor = Player;
 
 Player.prototype.update = function() {};
 
+// Draw the player on the screen
+// Use a GRID-relative value for both axes
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), GRID.x[this.x], GRID.y[this.y]);
 };
 
+// Move player based on accepted input
+// Do not allow player to move outside of the grid
 Player.prototype.handleInput = function(direction) {
     switch (direction) {
         case 'left':
@@ -61,13 +83,13 @@ Player.prototype.handleInput = function(direction) {
                 this.x--;
             break;
         case 'up':
-            if (this.y < 4)
+            if (this.y < GRID.height - 1)
                 this.y++;
-            else if (this.y === 4)
+            else if (this.y === GRID.height - 1)
                 this.win();
             break;
         case 'right':
-            if (this.x < 4)
+            if (this.x < GRID.width - 1)
                 this.x++;
             break;
         case 'down':
@@ -77,6 +99,10 @@ Player.prototype.handleInput = function(direction) {
     }
 };
 
+// Track number of wins
+// Alert player of victory & show number of wins
+// Increase difficulty with successive wins
+// Reset the game
 Player.prototype.win = function() {
     this.wins++;
     alert("Nice! You've crossed the road " + this.wins + " times!");
@@ -91,6 +117,10 @@ Player.prototype.win = function() {
     reset();
 };
 
+// Track number of losses
+// Alert player of the loss & show number of losses
+// Decrease difficulty
+// Reset the game
 Player.prototype.lose = function() {
     this.losses++;
     alert("OH NO! You've been hit " + this.losses + " times!");
@@ -105,8 +135,9 @@ Player.prototype.lose = function() {
     reset();
 };
 
+// Spawn player at the center-bottom of the grid
 Player.prototype.spawn = function() {
-    this.x = 2;
+    this.x = Math.floor(GRID.width / 2);
     this.y = 0;
 };
 
